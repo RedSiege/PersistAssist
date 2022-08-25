@@ -12,7 +12,9 @@ namespace PersistAssist.Function
 
         public override string TradecraftTask(ParsedArgs pArgs)
         {
-            throw new System.NotImplementedException();
+            try {
+                throw new System.NotImplementedException();
+            } catch (System.Exception e) { return $"PersistAssist module failed: {e.Message}"; } 
         }
     }
 }

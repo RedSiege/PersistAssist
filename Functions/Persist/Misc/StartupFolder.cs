@@ -18,12 +18,16 @@ namespace PersistAssist.Functions
 
         public override string PersistCleanup(ParsedArgs pArgs)
         {
-            throw new System.NotImplementedException();
+            try {
+                throw new System.NotImplementedException();
+            } catch (System.Exception e) { return $"PersistAssist module failed: {e.Message}"; }
         }
 
         public override string PersistExec(ParsedArgs pArgs)
         {
-            throw new System.NotImplementedException();
+            try {
+                throw new System.NotImplementedException();
+            } catch (System.Exception e) { return $"PersistAssist module failed: {e.Message}"; }
         }
     }
 }

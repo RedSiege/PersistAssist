@@ -28,25 +28,29 @@ namespace PersistAssist.Functions
          */
 
         public override string PersistExec(ParsedArgs pArgs) {
-            if(pArgs.regSubKey.isEmpty() || pArgs.regKeyValue.isEmpty() || pArgs.regContext.isEmpty()) { 
-                throw new PersistAssistException("[-] Incorrect parameters passed. See technique usage"); 
-            }
+            try { 
+                if(pArgs.regSubKey.isEmpty() || pArgs.regKeyValue.isEmpty() || pArgs.regContext.isEmpty()) { 
+                    throw new PersistAssistException("[-] Incorrect parameters passed. See technique usage"); 
+                }
 
-            if (pArgs.regContext.Contains("hkcu")) {
-                return RegistryOps.AddKey(@"Software\Microsoft\Windows\CurrentVersion", pArgs.regSubKey, pArgs.regKeyValue, RegistryContext.HKCU);
-            } else if (pArgs.regContext.Contains("hklm")) {
-                return RegistryOps.AddKey(@"Software\Microsoft\Windows\CurrentVersion", pArgs.regSubKey, pArgs.regKeyValue, RegistryContext.HKLM);
-            } else { throw new PersistAssistException("[-] Invalid registry context"); }
+                if (pArgs.regContext.Contains("hkcu")) {
+                    return RegistryOps.AddKey(@"Software\Microsoft\Windows\CurrentVersion", pArgs.regSubKey, pArgs.regKeyValue, RegistryContext.HKCU);
+                } else if (pArgs.regContext.Contains("hklm")) {
+                    return RegistryOps.AddKey(@"Software\Microsoft\Windows\CurrentVersion", pArgs.regSubKey, pArgs.regKeyValue, RegistryContext.HKLM);
+                } else { throw new PersistAssistException("[-] Invalid registry context"); }
+            } catch (System.Exception e) { return $"PersistAssist module failed: {e.Message}"; }
         }
 
         public override string PersistCleanup(ParsedArgs pArgs) {
-            if (pArgs.regSubKey.isEmpty() || pArgs.regContext.isEmpty()) { throw new PersistAssistException("[-] Incorrect parameters passed. See technique usage"); }
+            try {
+                if (pArgs.regSubKey.isEmpty() || pArgs.regContext.isEmpty()) { throw new PersistAssistException("[-] Incorrect parameters passed. See technique usage"); }
 
-            if (pArgs.regContext.Contains("hkcu")) {
-                return RegistryOps.RemoveKey(@"Software\Microsoft\Windows\CurrentVersion", pArgs.regSubKey, RegistryContext.HKCU);
-            } else if (pArgs.regContext.Contains("hklm")) {
-                return RegistryOps.RemoveKey(@"Software\Microsoft\Windows\CurrentVersion", pArgs.regSubKey, RegistryContext.HKLM);
-            } else { throw new PersistAssistException("[-] Invalid registry context"); }
+                if (pArgs.regContext.Contains("hkcu")) {
+                    return RegistryOps.RemoveKey(@"Software\Microsoft\Windows\CurrentVersion", pArgs.regSubKey, RegistryContext.HKCU);
+                } else if (pArgs.regContext.Contains("hklm")) {
+                    return RegistryOps.RemoveKey(@"Software\Microsoft\Windows\CurrentVersion", pArgs.regSubKey, RegistryContext.HKLM);
+                } else { throw new PersistAssistException("[-] Invalid registry context"); }
+            } catch (System.Exception e) { return $"PeristAssist module failed: {e.Message}"; }
         }
     }
 }

@@ -8,8 +8,7 @@ namespace PersistAssist.Utils
 {
     public class RegistryOps
     {
-        public static string AddKey(string rootkey, string subkey, string keyvalue, RegistryContext registryContext)
-        {
+        public static string AddKey(string rootkey, string subkey, string keyvalue, RegistryContext registryContext) {
             
             if (registryContext is RegistryContext.HKLM) {
                 Registry.LocalMachine.CreateSubKey(rootkey).SetValue(subkey, keyvalue);
@@ -32,18 +31,13 @@ namespace PersistAssist.Utils
            return $"[*] {registryContext}\\{key} with value \"{value}\" successfully removed";
         }
 
-        public static string ReadKey(string rootkey, string subkey, RegistryContext registryContext)
-        {
+        public static string ReadKey(string rootkey, string subkey, RegistryContext registryContext) {
             string regOut;
 
-            try
-            {
-                if (registryContext is RegistryContext.HKLM)
-                {
+            try {
+                if (registryContext is RegistryContext.HKLM) {
                     regOut = Registry.LocalMachine.OpenSubKey(rootkey).GetValue(subkey, null).ToString();
-                }
-                else
-                {
+                } else {
                     regOut = Registry.CurrentUser.OpenSubKey(rootkey).GetValue(subkey, null).ToString();
                 }
 
@@ -51,15 +45,11 @@ namespace PersistAssist.Utils
             } catch (Exception e) { return $"[*] {registryContext}\\{rootkey}\\{subkey} doesn't exist"; }
         }
 
-        public static string ReadKey(string rootkey, RegistryContext registryContext)
-        {
+        public static string ReadKey(string rootkey, RegistryContext registryContext) {
 
-            if (registryContext is RegistryContext.HKLM)
-            {
+            if (registryContext is RegistryContext.HKLM) {
                 return Registry.LocalMachine.OpenSubKey(rootkey).GetSubKeyNames().ToString();
-            }
-            else
-            {
+            } else {
                 return Registry.CurrentUser.OpenSubKey(rootkey).GetSubKeyNames().ToString();
             }
         }
