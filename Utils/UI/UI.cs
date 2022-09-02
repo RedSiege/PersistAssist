@@ -34,6 +34,8 @@ namespace PersistAssist.Utils
                 }
 
                 if (persist != null) {
+                    if (pArgs.Persist == false && pArgs.Cleanup == false) { throw new PersistAssistException("[-] Specify persistence or cleanup"); }
+
                     if (pArgs.Persist) { WriteLine(persist.PersistExec(pArgs)); return; }
                     if (pArgs.Cleanup) { WriteLine(persist.PersistCleanup(pArgs)); return; }
                 } else { WriteLine(tradecraft.TradecraftTask(pArgs)); return; }

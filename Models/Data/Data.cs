@@ -4,16 +4,16 @@ namespace PersistAssist.Models
 {
     public class Data
     {
-        public static string banner =
-            " ______                  __       __   _______             __       __   \n" +
-            "|   __ .-----.----.-----|__.-----|  |_|   _   .-----.-----|__.-----|  |_ \n" +
-            "|    __|  -__|   _|__ --|  |__ --|   _|       |__ --|__ --|  |__ --|   _|\n" +
-            "|___|  |_____|__| |_____|__|_____|____|___|___|_____|_____|__|_____|____|\n";
-
         public static string version = "v0.1";
-        public static bool displayBanner = false;
-        public static bool logging = false;
-        public static string namedpipe = "";
+        public static bool displayBanner = true;
+
+        public static string banner =
+        " ______                  __       __   _______             __       __   \n" +
+        "|   __ .-----.----.-----|__.-----|  |_|   _   .-----.-----|__.-----|  |_ \n" +
+        "|    __|  -__|   _|__ --|  |__ --|   _|       |__ --|__ --|  |__ --|   _|\n" +
+        "|___|  |_____|__| |_____|__|_____|____|___|___|_____|_____|__|_____|____|\n" +
+        $"   Author: @Grimmie (@FortyNorthSec)\n" +
+        $"      Ver: {version}\n";
 
         public class Lists
         {

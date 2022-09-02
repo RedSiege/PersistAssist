@@ -22,6 +22,7 @@ namespace PersistAssist
                     {"rk|rootkey=", "Root key for registry operations", opt => pArgs.regRootKey = opt },
                     {"sk|subkey=", "Sub key for registry operations", opt => pArgs.regSubKey = opt },
                     {"kv|keyvalue=", "Value to assign regirsty key", opt => pArgs.regKeyValue = opt},
+                    {"rc|registrycontext=", "Context to write reg key to (options: hkcu or hklm)", opt => pArgs.regContext = opt },
                     {"tn|taskname=", "Task name to set for MSBuild operations", opt => pArgs.TaskName = opt},
                     {"pl|payload=", "Payload to substitute into template", opt => pArgs.Payload = opt},
                     {"fp|filepath=", "Path to file/directory to target", opt => pArgs.filePath = opt},

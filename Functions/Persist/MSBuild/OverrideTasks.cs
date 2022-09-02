@@ -25,8 +25,8 @@ namespace PersistAssist.Functions
         public override string PersistExec(ParsedArgs pArgs)
         {
             try {
-                if (!Extensions.isAdmin()) { throw new PersistAssistException("[-] Must be running as Admin to perform this technique"); }
-                if (pArgs.TaskName.isEmpty() || pArgs.Payload.isEmpty()) { throw new PersistAssistException("[-] Incorrect parameters passed. See technique usage"); }
+                if (!Extensions.isAdmin()) { throw new PersistAssistException("Must be running as Admin to perform this technique"); }
+                if (pArgs.TaskName.isEmpty() || pArgs.Payload.isEmpty()) { throw new PersistAssistException("Incorrect parameters passed. See technique usage"); }
 
                 Payload payload = _payloads.FirstOrDefault(cPayload => cPayload.PayloadName.Equals(pArgs.Payload, StringComparison.InvariantCultureIgnoreCase));
                 if (payload is null) { throw new PersistAssistException($"Payload {payload} doesn't exist"); }
@@ -45,8 +45,8 @@ namespace PersistAssist.Functions
         public override string PersistCleanup(ParsedArgs pArgs)
         {
             try {
-                if (!Extensions.isAdmin()) { throw new PersistAssistException("[-] Must be running as Admin to perform this technique"); }
-                if (pArgs.TaskName.isEmpty() || pArgs.Payload.isEmpty()) { throw new PersistAssistException("[-] Incorrect parameters passed. See technique usage"); }
+                if (!Extensions.isAdmin()) { throw new PersistAssistException("Must be running as Admin to perform this technique"); }
+                if (pArgs.TaskName.isEmpty() || pArgs.Payload.isEmpty()) { throw new PersistAssistException("Incorrect parameters passed. See technique usage"); }
 
                 File.Delete($"{Directory.GetCurrentDirectory()}\\{pArgs.TaskName}.csproj");
                 File.Delete($"{MSBuildPath}\\{pArgs.TaskName}.overridetasks");
