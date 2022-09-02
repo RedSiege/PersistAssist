@@ -1,22 +1,18 @@
-﻿using System;
-
-using Mono.Options;
+﻿using Mono.Options;
 
 using PersistAssist.Utils;
 using PersistAssist.Models;
 
-using static System.Console;
-
 namespace PersistAssist
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             try {
 
                 if (Data.displayBanner) { UI.Banner(); }
-                
+
                 ParsedArgs pArgs = new ParsedArgs();
 
                 OptionSet opts = new OptionSet() {
@@ -25,27 +21,24 @@ namespace PersistAssist
                     {"s|search=", "Keyword to search for", opt => pArgs.Search = opt },
                     {"rk|rootkey=", "Root key for registry operations", opt => pArgs.regRootKey = opt },
                     {"sk|subkey=", "Sub key for registry operations", opt => pArgs.regSubKey = opt },
-                    {"kv|keyvalue=", "Value to assign regirsty key", opt => pArgs.regKeyValue = opt },
-                    {"rc|registrycontext=", "Context to write reg key to (options: hkcu or hklm)", opt => pArgs.regContext = opt },
-                    {"tn|taskname=", "Task name to set for MSBuild operations", opt => pArgs.TaskName = opt },
-                    {"pl|payload=", "Payload to substitute into template", opt => pArgs.Payload = opt },
-                    {"fp|filepath=", "Path to file/directory to target", opt => pArgs.filePath = opt },
-                    {"dp|duplicatepath=", "Path to duplicate file times from, modified all timestamps", opt => pArgs.dupPath = opt },
-                    {"ts|timestamp=", "Specify M(odified), A(ccessed), or C(reated) timestamp. Use ALL to target all timestamps", opt => pArgs.Timestamp = opt },
+                    {"kv|keyvalue=", "Value to assign regirsty key", opt => pArgs.regKeyValue = opt},
+                    {"tn|taskname=", "Task name to set for MSBuild operations", opt => pArgs.TaskName = opt},
+                    {"pl|payload=", "Payload to substitute into template", opt => pArgs.Payload = opt},
+                    {"fp|filepath=", "Path to file/directory to target", opt => pArgs.filePath = opt},
+                    {"dp|duplicatepath=", "Path to duplicate file times from, modified all timestamps", opt =>pArgs.dupPath = opt },
+                    {"ts|timestamp=", "Specify M(odified), A(ccessed), or C(reated) timestamp. Use ALL to target all timestamps", opt => pArgs.Timestamp = opt},
                     {"nt|newtime=", "Specify a new date to change specified timestamp to", opt => pArgs.newTime = opt },
-                    {"p|persist", "Execute specified techique", opt => pArgs.Persist = opt != null },
+                    {"p|persist", "Execute specified techique", opt => pArgs.Persist = opt != null},
                     {"c|cleanup", "Clean up specified technique", opt => pArgs.Cleanup = opt != null },
                     {"l|list", "List available techniques", opt => pArgs.listModules = opt != null },
                     {"i|info", "Displays information on a specified technique", opt => pArgs.moduleInfo = opt != null },
-                    {"h|help", "show this message and exit", opt => pArgs.Help = opt != null }
+                    {"h|help", "show this message and exit", opt => pArgs.Help = opt != null}
                 };
 
                 opts.Parse(args);
-                
-                UI.Action(pArgs, opts);
 
-            } catch (Exception e) { WriteLine(e.Message); }
-            finally { WriteLine("\nPersistAssist operations complete"); }
+                UI.Action(pArgs, opts);
+            } catch (System.Exception e) { System.Console.WriteLine($"Error: {e.Message}"); }
         }
     }
 }

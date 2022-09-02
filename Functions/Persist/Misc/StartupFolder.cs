@@ -3,8 +3,8 @@
 using static PersistAssist.Models.Data.Enums;
 
 namespace PersistAssist.Functions
-{    
-    internal class StartupFolder : Persist
+{
+    class StartupFolder : Persist
     {
         public override string PersistName => "StartupFolder";
 
