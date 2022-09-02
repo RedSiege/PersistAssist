@@ -2,7 +2,7 @@
 
 namespace PersistAssist.Utils
 {
-    static  class Extensions
+    static class Extensions
     {
         public static bool isEmpty(this string str){ return string.IsNullOrEmpty(str); }
 

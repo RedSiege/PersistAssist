@@ -17,7 +17,6 @@ namespace PersistAssist.Utils
         public static void Banner() { WriteLine(banner); }
 
         public static void Action(ParsedArgs pArgs, OptionSet opts) {
-            try {
 
                 FunctionInit();
 
@@ -34,13 +33,11 @@ namespace PersistAssist.Utils
                 }
 
                 if (persist != null) {
+                    if (pArgs.Persist == false && pArgs.Cleanup == false) { throw new PersistAssistException("[-] Specify persistence or cleanup"); }
+
                     if (pArgs.Persist) { WriteLine(persist.PersistExec(pArgs)); return; }
                     if (pArgs.Cleanup) { WriteLine(persist.PersistCleanup(pArgs)); return; }
                 } else { WriteLine(tradecraft.TradecraftTask(pArgs)); return; }
-
-            }  catch (PersistAssistException e) { WriteLine(e.Message); }
-            catch (Exception e ) { WriteLine(e.Message); }
-            finally { WriteLine("PersistAssist operations complete"); }
         }
 
         public static void listModules() {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PersistAssist.Models
+﻿namespace PersistAssist.Models
 {
     public class ParsedArgs
     {

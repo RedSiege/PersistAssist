@@ -4,7 +4,7 @@ using static PersistAssist.Models.Data.Enums;
 
 namespace PersistAssist.Functions
 {
-    public class InlineTasks : Persist
+    internal class InlineTasks : Persist
     {
         public override string PersistName => "InlineTasks";
 

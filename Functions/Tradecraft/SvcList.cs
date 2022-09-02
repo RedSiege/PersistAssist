@@ -1,8 +1,8 @@
 ﻿using PersistAssist.Models;
 
 namespace PersistAssist.Function
-{
-    public class SvcList : Tradecraft
+{ 
+    internal class SvcList : Tradecraft
     {
         public override string TradecraftName => "SvcList";
 

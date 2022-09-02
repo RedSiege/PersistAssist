@@ -2,7 +2,7 @@
 
 namespace PersistAssist.Functions
 {
-    public class SchList : Tradecraft
+    internal class SchList : Tradecraft
     {
         public override string TradecraftName => "SchList";
 

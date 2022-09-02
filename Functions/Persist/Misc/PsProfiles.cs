@@ -4,7 +4,7 @@ using static PersistAssist.Models.Data.Enums;
 
 namespace PersistAssist.Functions
 {
-    class PSProfiles : Persist
+    internal class PSProfiles : Persist
     {
         public override string PersistName => "PSProfile";
 

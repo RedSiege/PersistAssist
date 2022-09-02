@@ -5,7 +5,7 @@ using static PersistAssist.Utils.TimeStomp;
 
 namespace PersistAssist.Functions
 {
-    public class Timestomp : Tradecraft
+    internal class Timestomp : Tradecraft
     {
         public override string TradecraftName => "TimeStomp";
 
@@ -16,8 +16,8 @@ namespace PersistAssist.Functions
 
         public override string TradecraftTask(ParsedArgs pArgs) {
             try {
-                if (pArgs.Action.isEmpty() || pArgs.filePath.isEmpty() /*|| pArgs.Timestamp.isEmpty() || pArgs.newTime.isEmpty()*/) {
-                    throw new PersistAssistException("[-] Incorrect parameters passed. See technique usage");
+                if (pArgs.Action.isEmpty() || pArgs.filePath.isEmpty() /*|| pArgs.Timestamp.isEmpty() || pArgs.newTime.isEmpty() */) { 
+                    throw new PersistAssistException("Incorrect parameters passed. See technique usage");
                 }
 
                 if (pArgs.Action == "view") { 
@@ -31,11 +31,11 @@ namespace PersistAssist.Functions
                         StompCreationDate(pArgs.filePath, pArgs.newTime);
                     } else if (pArgs.Timestamp == "ALL") {
                         StompAll(pArgs.filePath, pArgs.newTime);
-                    } else { throw new PersistAssistException("[-] Incorrect timestamp parameter passed. See technique usage"); }
+                    } else { throw new PersistAssistException("Incorrect timestamp parameter passed. See technique usage"); }
                 } else if (pArgs.Action == "duplicate") {
                     StompFromDupObjFileTime(pArgs.filePath, pArgs.dupPath);
                 }
-                else { throw new PersistAssistException("[-] Incorrect action parameter passed. See technique usage"); }
+                else { throw new PersistAssistException("Incorrect action parameter passed. See technique usage"); }
 
                 return "";
             } catch (System.Exception e) { return $"PersistAssist module failed: {e.Message}"; }

@@ -1,6 +1,6 @@
 ﻿namespace PersistAssist.Models.Templates
 {
-    public class HelloWorld : Payload
+    internal class HelloWorld : Payload
     {
         public override string PayloadName => "HelloWorld";
 

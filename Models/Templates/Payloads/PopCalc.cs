@@ -1,6 +1,6 @@
 ﻿namespace PersistAssist.Models.Templates
 {
-    public class PopCalc : Payload
+    internal class PopCalc : Payload
     {
         public override string PayloadName => "PopCalc";
 
