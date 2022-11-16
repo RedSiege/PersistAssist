@@ -8,51 +8,88 @@ namespace PersistAssist.Utils
 {
     public class RegistryOps
     {
-        public static string AddKey(string rootkey, string subkey, string keyvalue, RegistryContext registryContext) {
-            
-            if (registryContext is RegistryContext.HKLM) {
+        public static string AddKey(string rootkey, string subkey, string keyvalue, RegistryContext registryContext)
+        {
+
+            if (registryContext is RegistryContext.HKLM)
+            {
                 Registry.LocalMachine.CreateSubKey(rootkey).SetValue(subkey, keyvalue);
-            } else {
+            }
+            else
+            {
                 Registry.CurrentUser.CreateSubKey(rootkey).SetValue(subkey, keyvalue);
             }
 
             return $"[*] Value \"{ReadKey(rootkey, subkey, registryContext)}\" written to {registryContext}\\{rootkey}\\{subkey}";
         }
 
-        public static string RemoveKey(string key, string value, RegistryContext registryContext) {
-            try {
-                if (registryContext is RegistryContext.HKLM) {
-                    Registry.LocalMachine.OpenSubKey(key, true).DeleteValue(value, true);
-                } else {
-                    Registry.CurrentUser.OpenSubKey(key, true).DeleteValue(value, true);
+        public static string ModifyKey(string rootkey, string subkey, string value, RegistryContext registryContext)
+        {
+            try
+            {
+                if (registryContext is RegistryContext.HKLM)
+                {
+                    Registry.LocalMachine.OpenSubKey(rootkey, true).SetValue(subkey, value, RegistryValueKind.String);
                 }
-            } catch (Exception e) { return $"[*] {registryContext}\\{key} failed to be removed"; }      
-           
-           return $"[*] {registryContext}\\{key} with value \"{value}\" successfully removed";
+                else
+                {
+                    Registry.CurrentUser.OpenSubKey(rootkey, true).SetValue(subkey, value, RegistryValueKind.String);
+                }
+            }
+            catch (Exception e) { return $"[*] {registryContext}\\{rootkey}\\{subkey} failed to be written to"; }
+
+            return $"[*] Value \"{ReadKey(rootkey, subkey, registryContext)}\" written to {registryContext}\\{rootkey}\\{subkey}";
         }
 
-        public static string ReadKey(string rootkey, string subkey, RegistryContext registryContext) {
+        public static string RemoveKey(string key, string value, RegistryContext registryContext)
+        {
+            try
+            {
+                if (registryContext is RegistryContext.HKLM)
+                {
+                    Registry.LocalMachine.OpenSubKey(key, true).DeleteValue(value, true);
+                }
+                else
+                {
+                    Registry.CurrentUser.OpenSubKey(key, true).DeleteValue(value, true);
+                }
+            }
+            catch (Exception e) { return $"[*] {registryContext}\\{key} failed to be removed"; }
+
+            return $"[*] {registryContext}\\{key} with value \"{value}\" successfully removed";
+        }
+
+        public static string ReadKey(string rootkey, string subkey, RegistryContext registryContext)
+        {
             string regOut;
 
-            try {
-                if (registryContext is RegistryContext.HKLM) {
+            try
+            {
+                if (registryContext is RegistryContext.HKLM)
+                {
                     regOut = Registry.LocalMachine.OpenSubKey(rootkey).GetValue(subkey, null).ToString();
-                } else {
+                }
+                else
+                {
                     regOut = Registry.CurrentUser.OpenSubKey(rootkey).GetValue(subkey, null).ToString();
                 }
 
                 return regOut;
-            } catch (Exception e) { return $"[*] {registryContext}\\{rootkey}\\{subkey} doesn't exist"; }
+            }
+            catch (Exception e) { return $"[*] {registryContext}\\{rootkey}\\{subkey} doesn't exist"; }
         }
 
-        public static string ReadKey(string rootkey, RegistryContext registryContext) {
+        public static string ReadKey(string rootkey, RegistryContext registryContext)
+        {
 
-            if (registryContext is RegistryContext.HKLM) {
+            if (registryContext is RegistryContext.HKLM)
+            {
                 return Registry.LocalMachine.OpenSubKey(rootkey).GetSubKeyNames().ToString();
-            } else {
+            }
+            else
+            {
                 return Registry.CurrentUser.OpenSubKey(rootkey).GetSubKeyNames().ToString();
             }
         }
-
     }
 }

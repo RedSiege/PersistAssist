@@ -11,5 +11,6 @@ namespace PersistAssist.Models
         public abstract string PersistExec(ParsedArgs pArgs);
         public abstract string PersistCleanup(ParsedArgs pArgs);
         public virtual string Author { get; }
+        public virtual bool requiresAdmin { get; }
     }
 }

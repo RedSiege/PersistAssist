@@ -7,6 +7,8 @@ namespace PersistAssist.Models
         public string Technique { get; set; }
         public string Action { get; set; }
         public string Search { get; set; }
+        public string listModule { get; set; }
+
         public string regRootKey { get; set; }
         public string regSubKey { get; set; }
         public string regKeyValue { get; set; }
@@ -17,6 +19,15 @@ namespace PersistAssist.Models
         public string dupPath { get; set; }
         public string newTime { get; set; }
         public string Timestamp { get; set; }
+        public string userName { get; set; }
+        public string Passwd { get; set; }
+        public string domain { get; set; }
+        public string Query { get; set; }
+        public string Command { get; set; }
+        public string eventFilterName { get; set; }
+        public string eventFilterQuery { get; set; }
+        public string eventConsumerName { get; set; }
+        public string eventConsumerValue { get; set; }
 
         public bool Persist = false;
         public bool Cleanup = false;

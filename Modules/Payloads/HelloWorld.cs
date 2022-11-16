@@ -1,14 +1,17 @@
-﻿namespace PersistAssist.Models.Templates
+﻿using PersistAssist.Models;
+
+namespace PersistAssist.Modules.Payloads
 {
-    public class HelloWorld : Payload
+    class HelloWorld : Payload
     {
         public override string PayloadName => "HelloWorld";
-
         public override string PayloadDesc => "hola mundo";
+        public override Data.Enums.PayloadLang PayloadLanguage => Data.Enums.PayloadLang.CSharp;
         public override string[] PayloadNamespaces => new string[] { "System" };
         public override string PayloadCode => @"
-            Console.Writeline(""Hello World"");
+            Console.WriteLine(""Hello World"");
         ";
+
 
     }
 }

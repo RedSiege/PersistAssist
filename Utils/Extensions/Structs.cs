@@ -8,6 +8,9 @@ namespace PersistAssist.Utils
 
         public class CredStructs
         {
+            public static int LOGON32_LOGON_NETWORK = 3;
+            public static int LOGON32_PROVIDER_DEFAULT = 0;
+
             private enum CredentialPersistence : uint
             {
                 Session = 1,
@@ -16,7 +19,7 @@ namespace PersistAssist.Utils
             }
 
             [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-            private struct CREDENTIAL
+            public struct CREDENTIAL
             {
                 public uint Flags;
                 public CredentialType Type;
@@ -44,6 +47,7 @@ namespace PersistAssist.Utils
                 MaximumEx = Maximum + 1000,
             }
         }
+
         public class FileStructs
         {
             [Flags]

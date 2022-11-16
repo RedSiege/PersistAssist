@@ -1,10 +1,15 @@
-﻿namespace PersistAssist.Models.Templates
+﻿using PersistAssist.Models;
+
+namespace PersistAssist.Modules.Payloads
 {
-    public class PopCalc : Payload
+    class PopCalc : Payload
     {
         public override string PayloadName => "PopCalc";
 
-        public override string PayloadDesc => "Pops calc";
+        public override string PayloadDesc => "pops calc";
+
+        public override Data.Enums.PayloadLang PayloadLanguage => Data.Enums.PayloadLang.CSharp;
+
         public override string[] PayloadNamespaces => new string[] { "System", "System.Diagnostics" };
 
         public override string PayloadCode => @"

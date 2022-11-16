@@ -4,7 +4,7 @@ namespace PersistAssist.Models
 {
     public class Data
     {
-        public static string version = "v0.1";
+        public static string version = "v0.2";
         public static bool displayBanner = true;
 
         public static string banner =
@@ -21,10 +21,6 @@ namespace PersistAssist.Models
             public static readonly List<Tradecraft> _tradecraft = new List<Tradecraft>();
             public static readonly List<Payload> _payloads = new List<Payload>();
 
-            public static readonly List<Persist> _persistRegistry = new List<Persist>();
-            public static readonly List<Persist> _persistMSBuild = new List<Persist>();
-            public static readonly List<Persist> _persistAccountOps = new List<Persist>();
-            public static readonly List<Persist> _persistMisc = new List<Persist>();
         }
 
         public class Enums
@@ -34,7 +30,14 @@ namespace PersistAssist.Models
                 Registry,
                 MSBuild,
                 AccountOperations,
+                WMI,
                 Misc
+            }
+
+            public enum PayloadLang
+            {
+                CSharp,
+                VBA
             }
 
             public enum RegistryContext
@@ -42,7 +45,11 @@ namespace PersistAssist.Models
                 HKLM,
                 HKCU
             }
-        }
+            public enum ErrorCodes
+            {
+                LOGON_FAILED = 1326
+            }
 
+        }
     }
 }

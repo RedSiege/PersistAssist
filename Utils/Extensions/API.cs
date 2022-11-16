@@ -7,7 +7,8 @@ using static PersistAssist.Utils.Structs;
 
 namespace PersistAssist.Utils
 {
-    public class API {
+    public class API
+    {
         public class Delegates
         {
             [UnmanagedFunctionPointer(CallingConvention.StdCall)]
@@ -18,7 +19,7 @@ namespace PersistAssist.Utils
                 IntPtr securityAttrs, FileStructs.ECreationDisposition dwCreationDisposition, FileStructs.EFileAttributes dwFlagsAndAttributes, IntPtr hTemplateFile);
 
             [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-            public delegate Boolean GetFileTime(IntPtr hFile, ref FileStructs.FILETIME lpCreationTime, ref FileStructs.FILETIME lpLastAccessTime, 
+            public delegate Boolean GetFileTime(IntPtr hFile, ref FileStructs.FILETIME lpCreationTime, ref FileStructs.FILETIME lpLastAccessTime,
                 ref FileStructs.FILETIME lpLastWriteTime);
 
             [UnmanagedFunctionPointer(CallingConvention.StdCall)]
@@ -41,7 +42,9 @@ namespace PersistAssist.Utils
 
             [UnmanagedFunctionPointer(CallingConvention.StdCall)]
             public delegate Boolean CredFree(IntPtr cred);
-             
+
+            [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+            public delegate int LogonUserA(string lpszUsername, string lpszDomain, string lpszPassword, int dwLogonType, int dwLogonProvider, ref int phToken);
         }
 
         public class TSS
