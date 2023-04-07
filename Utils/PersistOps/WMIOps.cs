@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Text;
 
@@ -82,7 +82,7 @@ namespace PersistAssist.Utils
 
         public static ManagementClass registerCommandLineEventConsumer(string eventConsumerName, string execPath)
         {
-            ManagementClass eventConsumer = new ManagementClass(new ManagementScope(@"\\.\root\subcription"), new ManagementPath("CommandLineEventConsumer"), null);
+            ManagementClass eventConsumer = new ManagementClass(new ManagementScope(@"\\.\root\subscription"), new ManagementPath("CommandLineEventConsumer"), null);
             eventConsumer.CreateInstance();
 
             eventConsumer["Name"] = eventConsumerName;
