@@ -35,7 +35,7 @@ namespace PersistAssist
                     {"efq|eventFilterQuery=", "EventFilter query for WMI event subscription", opt => pArgs.eventFilterQuery = opt},
                     {"efn|eventFilterName=", "EventFilter name for WMI event subscription", opt => pArgs.eventFilterName = opt },
                     {"ecn|eventConsumerName=", "EventConsumer name for WMI event subscription", opt => pArgs.eventConsumerName = opt},
-                    {"efv|eventConsumerValue=", "EventConsumer value for WMI event subscription", opt => pArgs.eventConsumerValue = opt },
+                    {"ecv|eventConsumerValue=", "EventConsumer value for WMI event subscription", opt => pArgs.eventConsumerValue = opt },
                     {"q|query=", "Query to run", opt => pArgs.Query = opt },
                     {"dn|domain=", "Specify current domain", opt => pArgs.domain = opt },
                     {"p|persist", "Execute specified techique", opt => pArgs.Persist = opt != null},
