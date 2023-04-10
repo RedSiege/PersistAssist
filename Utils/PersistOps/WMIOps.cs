@@ -80,18 +80,22 @@ namespace PersistAssist.Utils
             return eventConsumer;
         }
 
-        public static ManagementClass registerCommandLineEventConsumer(string eventConsumerName, string execPath)
+        public static ManagementObject registerCommandLineEventConsumer(string eventConsumerName, string execPath)
         {
-            ManagementClass eventConsumer = new ManagementClass(new ManagementScope(@"\\.\root\subscription"), new ManagementPath("CommandLineEventConsumer"), null);
-            eventConsumer.CreateInstance();
+            try
+            {
+                ManagementObject eventConsumer = new ManagementClass(new ManagementScope(@"\\.\root\subscription"), new ManagementPath("CommandLineEventConsumer"), null)
+                .CreateInstance();
 
-            eventConsumer["Name"] = eventConsumerName;
-            eventConsumer["ExecutablePath"] = execPath;
-            eventConsumer["CommandLineTemplate"] = execPath;
+                eventConsumer["Name"] = eventConsumerName;
+                eventConsumer["ExecutablePath"] = execPath;
+                eventConsumer["CommandLineTemplate"] = execPath;
 
-            eventConsumer.Put();
+                eventConsumer.Put();
 
-            return eventConsumer;
+                return eventConsumer;
+            }
+            catch (Exception e) { System.Console.WriteLine(e); return new ManagementClass(); }
         }
 
         public static ManagementObject registerFilterToConsumerBinding(string filterPath, string consumerPath)
