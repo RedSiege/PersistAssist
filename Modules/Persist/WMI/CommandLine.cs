@@ -39,10 +39,10 @@ namespace PersistAssist.Functions
             if (pArgs.eventFilterName.isEmpty() || pArgs.eventConsumerName.isEmpty()) {
                 throw new PersistAssistException("Incorrect parameters passed. See technique usage");
             }
+            return $"Get-WMIObject -Namespace root\\Subscription -Class __EventFilter -Filter \"Name='{pArgs.eventFilterName}'\" | Remove-WmiObject\n" +
+                $"Get-WMIObject -Namespace root\\Subscription -Class CommandLineEventConsumer -Filter \"Name='{pArgs.eventConsumerName}'\" | Remove-WmiObject\n" +
+                $"Get-WMIObject -Namespace root\\subscription -Class __FilterToConsumerBinding | where Filter -like \"*{pArgs.eventFilterName}*\" | Remove-WmiObject";
 
-            return $"Get-WMIObject -Namespace root\\Subscription -Class __EventFilter -Filter “Name='{pArgs.eventFilterName}'” | Remove-WmiObject\n" +
-                $"Get-WMIObject -Namespace root\\Subscription -Class CommandLineEventConsumer -Filter “Name='{pArgs.eventConsumerName}'” | Remove-WmiObject\n" +
-                $"Get-WMIObject -Namespace root\\Subscription -Class __FilterToConsumerBinding -Filter “__Path LIKE ‘%{pArgs.eventFilterName}%’” | Remove-WmiObject";
         }
     }
 }
